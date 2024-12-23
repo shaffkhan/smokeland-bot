@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Lock, MessageSquare } from "lucide-react";
-import { useRouter } from 'next/navigation';
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -10,7 +9,7 @@ interface LoginPageProps {
 export default function LoginPage({ onLogin }: LoginPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
