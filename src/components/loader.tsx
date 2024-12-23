@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 
 export default function Loader() {
   return (
@@ -8,7 +8,7 @@ export default function Loader() {
       exit={{ opacity: 0, y: -10 }}
       className="flex items-center space-x-2 text-slate-500"
     >
-      <span className="text-sm">Smokeland Bot is thinking</span>
+      <span className="text-sm">Smokeland engine responding</span>
       <motion.div
         className="flex space-x-1"
         initial="start"
@@ -46,6 +46,5 @@ export default function Loader() {
         ))}
       </motion.div>
     </motion.div>
-  )
+  );
 }
-

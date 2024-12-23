@@ -11,6 +11,24 @@ interface MessageListProps {
   messages: Message[];
 }
 
+function formatMessage(content: string) {
+  // Handle bold text
+  content = content.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+  // Handle clickable links
+  content = content.replace(
+    /<a\s+(?:[^>]*?\s+)?href="([^"]*)"[^>]*>(.*?)<\/a>/g,
+    (match, url, text) => {
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">${text}</a>`;
+    }
+  );
+
+  // Handle line breaks
+  content = content.replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>");
+
+  return content;
+}
+
 export default function MessageList({ messages }: MessageListProps) {
   return (
     <div className="space-y-4">
@@ -57,7 +75,11 @@ export default function MessageList({ messages }: MessageListProps) {
                   <p>{message.content}</p>
                 </div>
               ) : (
-                message.content
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: formatMessage(message.content),
+                  }}
+                />
               )}
             </div>
           </div>

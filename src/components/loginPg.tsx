@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { User, Lock } from 'lucide-react'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { User, Lock, MessageSquare } from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 interface LoginPageProps {
-  onLogin: () => void
+  onLogin: () => void;
 }
 
 export default function LoginPage({ onLogin }: LoginPageProps) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -24,12 +26,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       transition={{ duration: 0.3 }}
     >
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-slate-800">Smokeland Bot</h1>
-        <p className="text-slate-600 mt-2">Your personal assistant at your service.</p>
+        <h1 className="text-3xl font-bold text-slate-800">
+          Smokeland Conversation Engine
+        </h1>
+        <p className="text-slate-600 mt-2">
+          Your AI-powered assistant at your service.
+        </p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="relative">
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-slate-700 mb-1"
+          >
             Email
           </label>
           <div className="relative rounded-md shadow-sm">
@@ -48,7 +57,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </div>
         </div>
         <div className="relative">
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-slate-700 mb-1"
+          >
             Password
           </label>
           <div className="relative rounded-md shadow-sm">
@@ -75,12 +87,28 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           Sign in
         </motion.button>
       </form>
-      <div className="mt-6 text-center">
-        <a href="#" className="text-sm text-teal-600 hover:text-teal-500">
-          Forgot your password?
-        </a>
+      {message && (
+        <motion.div
+          className="mt-4 text-center text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <p
+            className={
+              message.includes("successful") ? "text-green-600" : "text-red-600"
+            }
+          >
+            {message}
+          </p>
+        </motion.div>
+      )}
+      <div className="mt-6 flex items-center justify-center">
+        <MessageSquare className="h-5 w-5 text-teal-500 mr-2" />
+        <span className="text-sm text-slate-600">
+          Powered by Smokeland Conversation Engine
+        </span>
       </div>
     </motion.div>
-  )
+  );
 }
-
